@@ -47,29 +47,32 @@ class TestNorm(utils.TorchGlowTestCase):
             fusible_ops={"aten::norm"},
         )
 
-    def test_norm_3d_inner_axis(self):
-        """Basic test of the PyTorch norm Node on Glow."""
+    # TODO(sdym@fb.com): uncomment the following tests
+    # after https://github.com/pytorch/pytorch/pull/81761 lands
+    #
+    # def test_norm_3d_inner_axis(self):
+    #     """Basic test of the PyTorch norm Node on Glow."""
 
-        utils.compare_tracing_methods(
-            SimpleNormModule(dim=1),
-            torch.arange(8, dtype=torch.float).reshape(2, 2, 2),
-            fusible_ops={"aten::frobenius_norm"},
-        )
+    #     utils.compare_tracing_methods(
+    #         SimpleNormModule(dim=1),
+    #         torch.arange(8, dtype=torch.float).reshape(2, 2, 2),
+    #         fusible_ops={"aten::linalg_vector_norm"},
+    #     )
 
-    def test_norm_4d_outer_axis(self):
-        """Basic test of the PyTorch norm Node on Glow."""
+    # def test_norm_4d_outer_axis(self):
+    #     """Basic test of the PyTorch norm Node on Glow."""
 
-        utils.compare_tracing_methods(
-            SimpleNormModule(dim=[3]),
-            torch.arange(16, dtype=torch.float).reshape(2, 2, 2, 2),
-            fusible_ops={"aten::frobenius_norm"},
-        )
+    #     utils.compare_tracing_methods(
+    #         SimpleNormModule(dim=[3]),
+    #         torch.arange(16, dtype=torch.float).reshape(2, 2, 2, 2),
+    #         fusible_ops={"aten::linalg_vector_norm"},
+    #     )
 
-    def test_norm_keepdim(self):
-        """Basic test of the PyTorch norm Node on Glow."""
+    # def test_norm_keepdim(self):
+    #     """Basic test of the PyTorch norm Node on Glow."""
 
-        utils.compare_tracing_methods(
-            SimpleNormModule(dim=[1], keepdim=True),
-            torch.arange(16, dtype=torch.float).reshape(2, 4, 2),
-            fusible_ops={"aten::frobenius_norm"},
-        )
+    #     utils.compare_tracing_methods(
+    #         SimpleNormModule(dim=[1], keepdim=True),
+    #         torch.arange(16, dtype=torch.float).reshape(2, 4, 2),
+    #         fusible_ops={"aten::linalg_vector_norm"},
+    #     )
